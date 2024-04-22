@@ -327,6 +327,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                     ),
                     widget.isTimerTextShown
                         ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
                                 width: 61,
@@ -336,6 +337,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                               .isStarted.value &&
                                           time.isNotEmpty)
                                       ? TextField(
+                                          enabled: false,
                                           controller: controllers[0]
                                             ..text = time.substring(0, 2),
                                           style: widget.textStyle ??
@@ -359,7 +361,9 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                               widget.durations[0] =
                                                   int.tryParse(p0) ??
                                                       widget.durations[0];
-                                              widget.controller?._duration =
+                                              widget.controller
+                                                  ?._initialDuration = widget
+                                                      .controller?._duration =
                                                   widget.durations[0] * 3600 +
                                                       widget.durations[1] * 60 +
                                                       widget.durations[2];
@@ -377,6 +381,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                               .isStarted.value &&
                                           time.isNotEmpty)
                                       ? TextField(
+                                          enabled: false,
                                           controller: controllers[1]
                                             ..text = time.substring(3, 5),
                                           style: widget.textStyle ??
@@ -400,7 +405,9 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                               widget.durations[1] =
                                                   int.tryParse(p0) ??
                                                       widget.durations[1];
-                                              widget.controller?._duration =
+                                              widget.controller
+                                                  ?._initialDuration = widget
+                                                      .controller?._duration =
                                                   widget.durations[0] * 3600 +
                                                       widget.durations[1] * 60 +
                                                       widget.durations[2];
@@ -418,6 +425,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                               .isStarted.value &&
                                           time.isNotEmpty)
                                       ? TextField(
+                                          enabled: false,
                                           controller: controllers[2]
                                             ..text = time.substring(6),
                                           style: widget.textStyle ??
@@ -441,7 +449,9 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                               widget.durations[2] =
                                                   int.tryParse(p0) ??
                                                       widget.durations[2];
-                                              widget.controller?._duration =
+                                              widget.controller
+                                                  ?._initialDuration = widget
+                                                      .controller?._duration =
                                                   widget.durations[0] * 3600 +
                                                       widget.durations[1] * 60 +
                                                       widget.durations[2];

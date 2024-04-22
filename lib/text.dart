@@ -23,6 +23,7 @@ class Text extends m.Text {
 }
 
 class TextField extends m.StatelessWidget {
+  final bool? enabled;
   final m.FocusNode? focusNode;
   final m.TextAlign? textAlign;
   final m.TextInputAction? textInputAction;
@@ -41,6 +42,7 @@ class TextField extends m.StatelessWidget {
 
   const TextField({
     super.key,
+    this.enabled,
     this.focusNode,
     this.textAlign,
     this.textInputAction,
@@ -65,6 +67,7 @@ class TextField extends m.StatelessWidget {
     return m.MediaQuery(
       data: mqDataNew,
       child: m.TextField(
+        enabled: enabled,
         focusNode: focusNode,
         textAlignVertical: m.TextAlignVertical.center,
         textAlign: textAlign ?? m.TextAlign.start,
