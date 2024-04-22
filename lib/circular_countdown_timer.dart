@@ -128,7 +128,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
   Animation<double>? _countDownAnimation;
   CountDownController? countDownController;
   List<TextEditingController> controllers = [
-    for (var _ in [1, 2, 3]) TextEditingController()
+    for (var _ in ['00', '10', '00']) TextEditingController(text: _)
   ];
 
   String get time {
@@ -356,17 +356,19 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                                 color: Colors.black,
                                               ),
                                           textAlign: TextAlign.end,
+                                          textInputAction: TextInputAction.next,
                                           onChanged: (p0) {
                                             setState(() {
                                               widget.durations[0] =
                                                   int.tryParse(p0) ??
                                                       widget.durations[0];
-                                              widget.controller
-                                                  ?._initialDuration = widget
-                                                      .controller?._duration =
+                                              widget.controller?._duration =
                                                   widget.durations[0] * 3600 +
                                                       widget.durations[1] * 60 +
                                                       widget.durations[2];
+                                              widget.controller
+                                                      ?._initialDuration =
+                                                  widget.controller?._duration;
                                             });
                                           },
                                         ),
@@ -400,17 +402,19 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                                 color: Colors.black,
                                               ),
                                           textAlign: TextAlign.end,
+                                          textInputAction: TextInputAction.next,
                                           onChanged: (p0) {
                                             setState(() {
                                               widget.durations[1] =
                                                   int.tryParse(p0) ??
                                                       widget.durations[1];
-                                              widget.controller
-                                                  ?._initialDuration = widget
-                                                      .controller?._duration =
+                                              widget.controller?._duration =
                                                   widget.durations[0] * 3600 +
                                                       widget.durations[1] * 60 +
                                                       widget.durations[2];
+                                              widget.controller
+                                                      ?._initialDuration =
+                                                  widget.controller?._duration;
                                             });
                                           },
                                         ),
@@ -444,17 +448,19 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                                 color: Colors.black,
                                               ),
                                           textAlign: TextAlign.end,
+                                          textInputAction: TextInputAction.done,
                                           onChanged: (p0) {
                                             setState(() {
                                               widget.durations[2] =
                                                   int.tryParse(p0) ??
                                                       widget.durations[2];
-                                              widget.controller
-                                                  ?._initialDuration = widget
-                                                      .controller?._duration =
+                                              widget.controller?._duration =
                                                   widget.durations[0] * 3600 +
                                                       widget.durations[1] * 60 +
                                                       widget.durations[2];
+                                              widget.controller
+                                                      ?._initialDuration =
+                                                  widget.controller?._duration;
                                             });
                                           },
                                         ),
