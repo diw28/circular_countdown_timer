@@ -1,7 +1,8 @@
 library circular_countdown_timer;
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 
+import 'text.dart';
 import 'countdown_text_format.dart';
 import 'custom_timer_painter.dart';
 
