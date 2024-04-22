@@ -127,9 +127,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
   AnimationController? _controller;
   Animation<double>? _countDownAnimation;
   CountDownController? countDownController;
-  List<TextEditingController> controllers = [
-    for (var _ in ['00', '10', '00']) TextEditingController(text: _)
-  ];
+  List<TextEditingController> controllers = [];
 
   String get time {
     String timeStamp = "";
@@ -294,6 +292,9 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
     _setAnimation();
     _setAnimationDirection();
     _setController();
+    controllers = [
+      for (var _ in widget.durations) TextEditingController(text: '$_')
+    ];
   }
 
   @override
