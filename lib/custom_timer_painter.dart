@@ -40,7 +40,7 @@ class CustomTimerPainter extends CustomPainter {
     }
 
     canvas.drawCircle(size.center(Offset.zero), size.width / 2, paint);
-    double progress = (animation!.value) * 2 * math.pi;
+    double progress = -(animation!.value) * 2 * math.pi;
     double startAngle = math.pi * 1.5;
 
     // if ((!isReverse! && isReverseAnimation!) ||
