@@ -334,13 +334,15 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                 width: 61,
                                 child: Align(
                                   alignment: FractionalOffset.center,
-                                  child: (countDownController!
-                                              .isStarted.value &&
-                                          time.isNotEmpty)
+                                  child: (true ||
+                                          countDownController!
+                                                  .isStarted.value &&
+                                              time.isNotEmpty)
                                       ? TextField(
                                           // enabled: false,
                                           controller: controllers[0]
-                                            ..text = time.substring(0, 2),
+                                            ..text = time,
+                                          // ..text = time.substring(0, 2),
                                           style: widget.textStyle ??
                                               const TextStyle(
                                                 fontSize: 16.0,
