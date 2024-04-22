@@ -1,6 +1,6 @@
 library circular_countdown_timer;
 
-import 'package:flutter/material.dart' hide Text;
+import 'package:flutter/material.dart' hide Text, TextField;
 
 import 'text.dart';
 import 'countdown_text_format.dart';
@@ -38,7 +38,7 @@ class CircularCountDownTimer extends StatefulWidget {
   final ValueChanged<String>? onChange;
 
   /// Countdown duration in Seconds.
-  final int duration;
+  final List<int> durations;
 
   /// Countdown initial elapsed Duration in Seconds.
   final int initialDuration;
@@ -89,10 +89,10 @@ class CircularCountDownTimer extends StatefulWidget {
   final Function(Function(Duration duration) defaultFormatterFunction,
       Duration duration)? timeFormatterFunction;
 
-  const CircularCountDownTimer({
+  CircularCountDownTimer({
     required this.width,
     required this.height,
-    required this.duration,
+    required this.durations,
     required this.fillColor,
     required this.ringColor,
     this.timeFormatterFunction,
@@ -115,7 +115,8 @@ class CircularCountDownTimer extends StatefulWidget {
     this.autoStart = true,
     this.textFormat,
     this.controller,
-  }) : assert(initialDuration <= duration);
+  }) : assert(initialDuration <=
+            3600 * durations[0] + 60 * durations[1] + durations[2]);
 
   @override
   CircularCountDownTimerState createState() => CircularCountDownTimerState();
@@ -126,6 +127,9 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
   AnimationController? _controller;
   Animation<double>? _countDownAnimation;
   CountDownController? countDownController;
+  List<TextEditingController> controllers = [
+    for (var _ in [1, 2, 3]) TextEditingController()
+  ];
 
   String get time {
     String timeStamp = "";
@@ -133,10 +137,20 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
         !widget.autoStart &&
         !countDownController!.isStarted.value) {
       if (widget.timeFormatterFunction != null) {
-        timeStamp = Function.apply(widget.timeFormatterFunction!,
-            [_getTime, Duration(seconds: widget.duration)]).toString();
+        timeStamp = Function.apply(widget.timeFormatterFunction!, [
+          _getTime,
+          Duration(
+            hours: widget.durations[0],
+            minutes: widget.durations[1],
+            seconds: widget.durations[2],
+          )
+        ]).toString();
       } else {
-        timeStamp = _getTime(Duration(seconds: widget.duration));
+        timeStamp = _getTime(Duration(
+          hours: widget.durations[0],
+          minutes: widget.durations[1],
+          seconds: widget.durations[2],
+        ));
       }
     } else {
       Duration? duration = _controller!.duration! * _controller!.value;
@@ -180,17 +194,20 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
   }
 
   void _setController() {
+    int duration = widget.durations[0] * 3600 +
+        widget.durations[1] * 60 +
+        widget.durations[2];
     countDownController?._state = this;
     countDownController?._isReverse = widget.isReverse;
     countDownController?._initialDuration = widget.initialDuration;
-    countDownController?._duration = widget.duration;
+    countDownController?._duration = duration;
     countDownController?.isStarted.value = widget.autoStart;
 
     if (widget.initialDuration > 0 && widget.autoStart) {
       if (widget.isReverse) {
-        _controller?.value = 1 - (widget.initialDuration / widget.duration);
+        _controller?.value = 1 - (widget.initialDuration / duration);
       } else {
-        _controller?.value = (widget.initialDuration / widget.duration);
+        _controller?.value = (widget.initialDuration / duration);
       }
 
       countDownController?.start();
@@ -243,7 +260,11 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: widget.duration),
+      duration: Duration(
+        hours: widget.durations[0],
+        minutes: widget.durations[1],
+        seconds: widget.durations[2],
+      ),
     );
 
     _controller!.addStatusListener((status) {
@@ -305,17 +326,110 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                       ),
                     ),
                     widget.isTimerTextShown
-                        ? Align(
-                            alignment: FractionalOffset.center,
-                            child: Text(
-                              time,
-                              style: widget.textStyle ??
-                                  const TextStyle(
-                                    fontSize: 16.0,
-                                    color: Colors.black,
-                                  ),
-                              textAlign: widget.textAlign,
-                            ),
+                        ? Row(
+                            children: [
+                              SizedBox(
+                                width: 61,
+                                child: Align(
+                                  alignment: FractionalOffset.center,
+                                  child: (countDownController!.isStarted.value)
+                                      ? TextField(
+                                          controller: controllers[0]
+                                            ..text = time,
+                                          style: widget.textStyle ??
+                                              const TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.black,
+                                              ),
+                                          textAlign: widget.textAlign,
+                                        )
+                                      : TextField(
+                                          controller: controllers[0],
+                                          style: widget.textStyle ??
+                                              const TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.black,
+                                              ),
+                                          textAlign: widget.textAlign,
+                                          onChanged: (p0) {
+                                            setState(() {
+                                              widget.durations[0] =
+                                                  int.tryParse(p0) ??
+                                                      widget.durations[0];
+                                            });
+                                          },
+                                        ),
+                                ),
+                              ),
+                              Text(' : ', style: widget.textStyle),
+                              SizedBox(
+                                width: 61,
+                                child: Align(
+                                  alignment: FractionalOffset.center,
+                                  child: (countDownController!.isStarted.value)
+                                      ? TextField(
+                                          controller: controllers[1]
+                                            ..text = time,
+                                          style: widget.textStyle ??
+                                              const TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.black,
+                                              ),
+                                          textAlign: widget.textAlign,
+                                        )
+                                      : TextField(
+                                          controller: controllers[1],
+                                          style: widget.textStyle ??
+                                              const TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.black,
+                                              ),
+                                          textAlign: widget.textAlign,
+                                          onChanged: (p0) {
+                                            setState(() {
+                                              widget.durations[1] =
+                                                  int.tryParse(p0) ??
+                                                      widget.durations[1];
+                                            });
+                                          },
+                                        ),
+                                ),
+                              ),
+                              Text(' : ', style: widget.textStyle),
+                              SizedBox(
+                                width: 61,
+                                child: Align(
+                                  alignment: FractionalOffset.center,
+                                  child: (countDownController!.isStarted.value)
+                                      ? TextField(
+                                          controller: controllers[2]
+                                            ..text = time,
+                                          style: widget.textStyle ??
+                                              const TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.black,
+                                              ),
+                                          textAlign: widget.textAlign,
+                                        )
+                                      : TextField(
+                                          controller: controllers[2],
+                                          style: widget.textStyle ??
+                                              const TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.black,
+                                              ),
+                                          textAlign: widget.textAlign,
+                                          onChanged: (p0) {
+                                            setState(() {
+                                              widget.durations[2] =
+                                                  int.tryParse(p0) ??
+                                                      widget.durations[2];
+                                            });
+                                          },
+                                        ),
+                                ),
+                              ),
+                            ],
                           )
                         : Container(),
                   ],
