@@ -332,35 +332,40 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                 width: 61,
                                 child: Align(
                                   alignment: FractionalOffset.center,
-                                  child:
-                                      (countDownController!.isStarted.value &&
-                                              time.isNotEmpty)
-                                          ? TextField(
-                                              controller: controllers[0]
-                                                ..text = time.substring(0, 2),
-                                              style: widget.textStyle ??
-                                                  const TextStyle(
-                                                    fontSize: 16.0,
-                                                    color: Colors.black,
-                                                  ),
-                                              textAlign: widget.textAlign,
-                                            )
-                                          : TextField(
-                                              controller: controllers[0],
-                                              style: widget.textStyle ??
-                                                  const TextStyle(
-                                                    fontSize: 16.0,
-                                                    color: Colors.black,
-                                                  ),
-                                              textAlign: widget.textAlign,
-                                              onChanged: (p0) {
-                                                setState(() {
-                                                  widget.durations[0] =
-                                                      int.tryParse(p0) ??
-                                                          widget.durations[0];
-                                                });
-                                              },
-                                            ),
+                                  child: (countDownController!
+                                              .isStarted.value &&
+                                          time.isNotEmpty)
+                                      ? TextField(
+                                          controller: controllers[0]
+                                            ..text = time.substring(0, 2),
+                                          style: widget.textStyle ??
+                                              const TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.black,
+                                              ),
+                                          textAlign: widget.textAlign,
+                                        )
+                                      : TextField(
+                                          controller: controllers[0],
+                                          style: widget.textStyle?.copyWith(
+                                                  color: Colors.green) ??
+                                              const TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.black,
+                                              ),
+                                          textAlign: TextAlign.end,
+                                          onChanged: (p0) {
+                                            setState(() {
+                                              widget.durations[0] =
+                                                  int.tryParse(p0) ??
+                                                      widget.durations[0];
+                                              widget.controller?._duration =
+                                                  widget.durations[0] * 3600 +
+                                                      widget.durations[1] * 60 +
+                                                      widget.durations[2];
+                                            });
+                                          },
+                                        ),
                                 ),
                               ),
                               Text(' : ', style: widget.textStyle),
@@ -368,35 +373,40 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                 width: 61,
                                 child: Align(
                                   alignment: FractionalOffset.center,
-                                  child:
-                                      (countDownController!.isStarted.value &&
-                                              time.isNotEmpty)
-                                          ? TextField(
-                                              controller: controllers[1]
-                                                ..text = time.substring(3, 5),
-                                              style: widget.textStyle ??
-                                                  const TextStyle(
-                                                    fontSize: 16.0,
-                                                    color: Colors.black,
-                                                  ),
-                                              textAlign: widget.textAlign,
-                                            )
-                                          : TextField(
-                                              controller: controllers[1],
-                                              style: widget.textStyle ??
-                                                  const TextStyle(
-                                                    fontSize: 16.0,
-                                                    color: Colors.black,
-                                                  ),
-                                              textAlign: widget.textAlign,
-                                              onChanged: (p0) {
-                                                setState(() {
-                                                  widget.durations[1] =
-                                                      int.tryParse(p0) ??
-                                                          widget.durations[1];
-                                                });
-                                              },
-                                            ),
+                                  child: (countDownController!
+                                              .isStarted.value &&
+                                          time.isNotEmpty)
+                                      ? TextField(
+                                          controller: controllers[1]
+                                            ..text = time.substring(3, 5),
+                                          style: widget.textStyle ??
+                                              const TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.black,
+                                              ),
+                                          textAlign: widget.textAlign,
+                                        )
+                                      : TextField(
+                                          controller: controllers[1],
+                                          style: widget.textStyle?.copyWith(
+                                                  color: Colors.green) ??
+                                              const TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.black,
+                                              ),
+                                          textAlign: TextAlign.end,
+                                          onChanged: (p0) {
+                                            setState(() {
+                                              widget.durations[1] =
+                                                  int.tryParse(p0) ??
+                                                      widget.durations[1];
+                                              widget.controller?._duration =
+                                                  widget.durations[0] * 3600 +
+                                                      widget.durations[1] * 60 +
+                                                      widget.durations[2];
+                                            });
+                                          },
+                                        ),
                                 ),
                               ),
                               Text(' : ', style: widget.textStyle),
@@ -404,35 +414,40 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                 width: 61,
                                 child: Align(
                                   alignment: FractionalOffset.center,
-                                  child:
-                                      (countDownController!.isStarted.value &&
-                                              time.isNotEmpty)
-                                          ? TextField(
-                                              controller: controllers[2]
-                                                ..text = time.substring(6),
-                                              style: widget.textStyle ??
-                                                  const TextStyle(
-                                                    fontSize: 16.0,
-                                                    color: Colors.black,
-                                                  ),
-                                              textAlign: widget.textAlign,
-                                            )
-                                          : TextField(
-                                              controller: controllers[2],
-                                              style: widget.textStyle ??
-                                                  const TextStyle(
-                                                    fontSize: 16.0,
-                                                    color: Colors.black,
-                                                  ),
-                                              textAlign: widget.textAlign,
-                                              onChanged: (p0) {
-                                                setState(() {
-                                                  widget.durations[2] =
-                                                      int.tryParse(p0) ??
-                                                          widget.durations[2];
-                                                });
-                                              },
-                                            ),
+                                  child: (countDownController!
+                                              .isStarted.value &&
+                                          time.isNotEmpty)
+                                      ? TextField(
+                                          controller: controllers[2]
+                                            ..text = time.substring(6),
+                                          style: widget.textStyle ??
+                                              const TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.black,
+                                              ),
+                                          textAlign: widget.textAlign,
+                                        )
+                                      : TextField(
+                                          controller: controllers[2],
+                                          style: widget.textStyle?.copyWith(
+                                                  color: Colors.green) ??
+                                              const TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.black,
+                                              ),
+                                          textAlign: TextAlign.end,
+                                          onChanged: (p0) {
+                                            setState(() {
+                                              widget.durations[2] =
+                                                  int.tryParse(p0) ??
+                                                      widget.durations[2];
+                                              widget.controller?._duration =
+                                                  widget.durations[0] * 3600 +
+                                                      widget.durations[1] * 60 +
+                                                      widget.durations[2];
+                                            });
+                                          },
+                                        ),
                                 ),
                               ),
                             ],
