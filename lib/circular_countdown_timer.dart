@@ -251,6 +251,12 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
     if (widget.onComplete != null) widget.onComplete!();
   }
 
+  String format(String str) {
+    if (str.isEmpty) return '00';
+    if (str.length == 1) return '0$str';
+    return str;
+  }
+
   @override
   void initState() {
     hours = widget.durations[0];
@@ -338,15 +344,14 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                 width: 61,
                                 child: Align(
                                   alignment: FractionalOffset.center,
-                                  child: (
-                                          // true ||
-                                          countDownController!
-                                                  .isStarted.value &&
-                                              time.isNotEmpty)
+                                  child: (countDownController!
+                                              .isStarted.value &&
+                                          time.isNotEmpty)
                                       ? TextField(
+                                          enabled: false,
                                           controller: controllers[0]
                                             ..text =
-                                                '${countDownController?._duration}',
+                                                format(time.substring(0, 2)),
                                           style: widget.textStyle ??
                                               const TextStyle(
                                                 fontSize: 16.0,
@@ -355,9 +360,9 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                           textAlign: widget.textAlign,
                                         )
                                       : TextField(
+                                          keyboardType: TextInputType.number,
                                           controller: controllers[0],
-                                          style: widget.textStyle?.copyWith(
-                                                  color: Colors.green) ??
+                                          style: widget.textStyle ??
                                               const TextStyle(
                                                 fontSize: 16.0,
                                                 color: Colors.black,
@@ -365,16 +370,25 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                           textAlign: TextAlign.end,
                                           textInputAction: TextInputAction.next,
                                           onChanged: (p0) {
-                                            setState(() {
-                                              hours = int.tryParse(p0) ?? hours;
-                                              _controller?.duration = Duration(
-                                                hours: hours,
-                                                minutes: minutes,
-                                                seconds: seconds,
-                                              );
-                                              _setController();
-                                            });
+                                            controllers[0].text = format(p0);
+                                            hours = int.tryParse(p0) ?? hours;
+                                            _controller?.duration = Duration(
+                                              hours: hours,
+                                              minutes: minutes,
+                                              seconds: seconds,
+                                            );
+                                            _setController();
+                                            controllers[1].selection =
+                                                const TextSelection(
+                                              baseOffset: 0,
+                                              extentOffset: 2,
+                                            );
+                                            setState(() {});
                                           },
+                                          maxLength: 2,
+                                          decoration: const InputDecoration(
+                                            counterText: '',
+                                          ),
                                         ),
                                 ),
                               ),
@@ -387,8 +401,10 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                               .isStarted.value &&
                                           time.isNotEmpty)
                                       ? TextField(
+                                          enabled: false,
                                           controller: controllers[1]
-                                            ..text = time.substring(3, 5),
+                                            ..text =
+                                                format(time.substring(3, 5)),
                                           style: widget.textStyle ??
                                               const TextStyle(
                                                 fontSize: 16.0,
@@ -397,9 +413,9 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                           textAlign: widget.textAlign,
                                         )
                                       : TextField(
+                                          keyboardType: TextInputType.number,
                                           controller: controllers[1],
-                                          style: widget.textStyle?.copyWith(
-                                                  color: Colors.green) ??
+                                          style: widget.textStyle ??
                                               const TextStyle(
                                                 fontSize: 16.0,
                                                 color: Colors.black,
@@ -408,6 +424,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                           textInputAction: TextInputAction.next,
                                           onChanged: (p0) {
                                             setState(() {
+                                              controllers[1].text = format(p0);
                                               minutes =
                                                   int.tryParse(p0) ?? minutes;
                                               _controller?.duration = Duration(
@@ -416,6 +433,11 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                                 seconds: seconds,
                                               );
                                               _setController();
+                                              controllers[2].selection =
+                                                  const TextSelection(
+                                                baseOffset: 0,
+                                                extentOffset: 2,
+                                              );
                                             });
                                           },
                                         ),
@@ -430,8 +452,9 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                               .isStarted.value &&
                                           time.isNotEmpty)
                                       ? TextField(
+                                          enabled: false,
                                           controller: controllers[2]
-                                            ..text = time.substring(6),
+                                            ..text = format(time.substring(6)),
                                           style: widget.textStyle ??
                                               const TextStyle(
                                                 fontSize: 16.0,
@@ -440,9 +463,9 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                           textAlign: widget.textAlign,
                                         )
                                       : TextField(
+                                          keyboardType: TextInputType.number,
                                           controller: controllers[2],
-                                          style: widget.textStyle?.copyWith(
-                                                  color: Colors.green) ??
+                                          style: widget.textStyle ??
                                               const TextStyle(
                                                 fontSize: 16.0,
                                                 color: Colors.black,
@@ -451,6 +474,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                           textInputAction: TextInputAction.done,
                                           onChanged: (p0) {
                                             setState(() {
+                                              controllers[2].text = format(p0);
                                               seconds =
                                                   int.tryParse(p0) ?? seconds;
                                               _controller?.duration = Duration(
