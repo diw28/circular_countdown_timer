@@ -470,7 +470,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                           textAlign: widget.textAlign,
                                         )
                                       : TextField(
-                                          focusNode: widget.focusNodes[0],
+                                          focusNode: widget.focusNodes[1],
                                           keyboardType: TextInputType.number,
                                           controller: controllers[1],
                                           style: widget.textStyle ??
@@ -516,7 +516,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                           textAlign: widget.textAlign,
                                         )
                                       : TextField(
-                                          focusNode: widget.focusNodes[0],
+                                          focusNode: widget.focusNodes[2],
                                           keyboardType: TextInputType.number,
                                           controller: controllers[2],
                                           style: widget.textStyle ??
