@@ -385,7 +385,8 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                           textAlign: TextAlign.end,
                                           textInputAction: TextInputAction.next,
                                           onChanged: (p0) {
-                                            controllers[0].text = format(p0);
+                                            p0 = format(p0);
+                                            controllers[0].text = p0;
                                             hours = int.tryParse(p0) ?? hours;
                                             _controller?.duration = Duration(
                                               hours: hours,
@@ -440,7 +441,8 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                           textInputAction: TextInputAction.next,
                                           onChanged: (p0) {
                                             setState(() {
-                                              controllers[1].text = format(p0);
+                                              p0 = format(p0);
+                                              controllers[1].text = p0;
                                               minutes =
                                                   int.tryParse(p0) ?? minutes;
                                               _controller?.duration = Duration(
@@ -495,7 +497,8 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                           textInputAction: TextInputAction.done,
                                           onChanged: (p0) {
                                             setState(() {
-                                              controllers[2].text = format(p0);
+                                              p0 = format(p0);
+                                              controllers[2].text = p0;
                                               seconds =
                                                   int.tryParse(p0) ?? seconds;
                                               _controller?.duration = Duration(
