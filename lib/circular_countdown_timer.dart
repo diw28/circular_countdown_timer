@@ -568,13 +568,34 @@ class CountDownController {
   int? _initialDuration, _duration;
 
   void setTime(int hours, int minutes, int seconds) {
+    int duration = hours * 3600 + minutes * 60 + seconds;
     _state!.controllers[0].text = _state!.format('$hours');
     _state!.controllers[1].text = _state!.format('$minutes');
     _state!.controllers[2].text = _state!.format('$seconds');
-    throw Exception('error');
-    _state!.updateHours('$hours');
-    _state!.updateMinutes('$minutes');
-    _state!.updateSeconds('$seconds');
+    _state!.hours = hours;
+    _state!.minutes = minutes;
+    _state!.seconds = seconds;
+    _state!._controller?.duration = Duration(
+      hours: hours,
+      minutes: minutes,
+      seconds: seconds,
+    );
+    _isReverse = _state!.widget.isReverse;
+    _initialDuration = _state!.widget.initialDuration;
+    _duration = duration;
+    isStarted.value = _state!.widget.autoStart;
+
+    if (_state!.widget.initialDuration > 0 && _state!.widget.autoStart) {
+      if (_state!.widget.isReverse) {
+        _state!._controller?.value =
+            1 - (_state!.widget.initialDuration / duration);
+      } else {
+        _state!._controller?.value =
+            (_state!.widget.initialDuration / duration);
+      }
+
+      start();
+    }
   }
 
   /// This Method Starts the Countdown Timer
