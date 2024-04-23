@@ -128,6 +128,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
   Animation<double>? _countDownAnimation;
   CountDownController? countDownController;
   List<TextEditingController> controllers = [];
+  late int hours, minutes, seconds;
 
   String get time {
     String timeStamp = "";
@@ -138,16 +139,16 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
         timeStamp = Function.apply(widget.timeFormatterFunction!, [
           _getTime,
           Duration(
-            hours: widget.durations[0],
-            minutes: widget.durations[1],
-            seconds: widget.durations[2],
+            hours: hours,
+            minutes: minutes,
+            seconds: seconds,
           )
         ]).toString();
       } else {
         timeStamp = _getTime(Duration(
-          hours: widget.durations[0],
-          minutes: widget.durations[1],
-          seconds: widget.durations[2],
+          hours: hours,
+          minutes: minutes,
+          seconds: seconds,
         ));
       }
     } else {
@@ -192,9 +193,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
   }
 
   void _setController() {
-    int duration = widget.durations[0] * 3600 +
-        widget.durations[1] * 60 +
-        widget.durations[2];
+    int duration = hours * 3600 + minutes * 60 + seconds;
     countDownController?._state = this;
     countDownController?._isReverse = widget.isReverse;
     countDownController?._initialDuration = widget.initialDuration;
@@ -254,14 +253,17 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
 
   @override
   void initState() {
+    hours = widget.durations[0];
+    minutes = widget.durations[1];
+    seconds = widget.durations[2];
     countDownController = widget.controller ?? CountDownController();
     super.initState();
     _controller = AnimationController(
       vsync: this,
       duration: Duration(
-        hours: widget.durations[0],
-        minutes: widget.durations[1],
-        seconds: widget.durations[2],
+        hours: hours,
+        minutes: minutes,
+        seconds: seconds,
       ),
     );
 
@@ -293,7 +295,9 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
     _setAnimationDirection();
     _setController();
     controllers = [
-      for (var _ in widget.durations) TextEditingController(text: '$_')
+      TextEditingController(text: '$hours'),
+      TextEditingController(text: '$minutes'),
+      TextEditingController(text: '$seconds'),
     ];
   }
 
@@ -334,15 +338,14 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                 width: 61,
                                 child: Align(
                                   alignment: FractionalOffset.center,
-                                  child: (true ||
+                                  child: (
+                                          // true ||
                                           countDownController!
                                                   .isStarted.value &&
                                               time.isNotEmpty)
                                       ? TextField(
-                                          // enabled: false,
                                           controller: controllers[0]
-                                            ..text = '${widget.durations}',
-                                          // ..text = time.substring(0, 2),
+                                            ..text = time.substring(0, 2),
                                           style: widget.textStyle ??
                                               const TextStyle(
                                                 fontSize: 16.0,
@@ -362,10 +365,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                           textInputAction: TextInputAction.next,
                                           onChanged: (p0) {
                                             setState(() {
-                                              widget.durations[0] =
-                                                  int.tryParse(p0) ??
-                                                      widget.durations[0];
-
+                                              hours = int.tryParse(p0) ?? hours;
                                               _setController();
                                             });
                                           },
@@ -381,7 +381,6 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                               .isStarted.value &&
                                           time.isNotEmpty)
                                       ? TextField(
-                                          // enabled: false,
                                           controller: controllers[1]
                                             ..text = time.substring(3, 5),
                                           style: widget.textStyle ??
@@ -403,9 +402,8 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                           textInputAction: TextInputAction.next,
                                           onChanged: (p0) {
                                             setState(() {
-                                              widget.durations[1] =
-                                                  int.tryParse(p0) ??
-                                                      widget.durations[1];
+                                              minutes =
+                                                  int.tryParse(p0) ?? minutes;
                                               _setController();
                                             });
                                           },
@@ -421,7 +419,6 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                               .isStarted.value &&
                                           time.isNotEmpty)
                                       ? TextField(
-                                          // enabled: false,
                                           controller: controllers[2]
                                             ..text = time.substring(6),
                                           style: widget.textStyle ??
@@ -443,9 +440,8 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                           textInputAction: TextInputAction.done,
                                           onChanged: (p0) {
                                             setState(() {
-                                              widget.durations[2] =
-                                                  int.tryParse(p0) ??
-                                                      widget.durations[2];
+                                              seconds =
+                                                  int.tryParse(p0) ?? seconds;
                                               _setController();
                                             });
                                           },
