@@ -567,6 +567,12 @@ class CountDownController {
       isRestarted = ValueNotifier<bool>(false);
   int? _initialDuration, _duration;
 
+  void setTime(int hours, int minutes, int seconds) {
+    _state?.updateHours('$hours');
+    _state?.updateHours('$minutes');
+    _state?.updateHours('$seconds');
+  }
+
   /// This Method Starts the Countdown Timer
   void start() {
     if (_isReverse != null && _state != null && _state?._controller != null) {
