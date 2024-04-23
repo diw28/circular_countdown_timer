@@ -255,7 +255,9 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
     if (int.tryParse(str) == null) return '00';
     if (str.isEmpty) return '00';
     if (str.length == 1) return '0$str';
-    return str;
+    if (str.length == 2) return str;
+    if (str[0] == '0') return str.substring(1);
+    return str.substring(0, 2);
   }
 
   @override
@@ -302,9 +304,21 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
     _setAnimationDirection();
     _setController();
     controllers = [
-      TextEditingController(text: format('$hours')),
-      TextEditingController(text: format('$minutes')),
-      TextEditingController(text: format('$seconds')),
+      TextEditingController(text: format('$hours'))
+        ..selection = const TextSelection(
+          baseOffset: 0,
+          extentOffset: 2,
+        ),
+      TextEditingController(text: format('$minutes'))
+        ..selection = const TextSelection(
+          baseOffset: 0,
+          extentOffset: 2,
+        ),
+      TextEditingController(text: format('$seconds'))
+        ..selection = const TextSelection(
+          baseOffset: 0,
+          extentOffset: 2,
+        ),
     ];
   }
 
@@ -386,7 +400,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                             );
                                             setState(() {});
                                           },
-                                          maxLength: 2,
+                                          maxLength: 3,
                                           decoration: const InputDecoration(
                                             counterText: '',
                                             border: InputBorder.none,
@@ -442,7 +456,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                               );
                                             });
                                           },
-                                          maxLength: 2,
+                                          maxLength: 3,
                                           decoration: const InputDecoration(
                                             counterText: '',
                                             border: InputBorder.none,
@@ -492,7 +506,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                               _setController();
                                             });
                                           },
-                                          maxLength: 2,
+                                          maxLength: 3,
                                           decoration: const InputDecoration(
                                             counterText: '',
                                             border: InputBorder.none,
