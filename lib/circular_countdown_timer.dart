@@ -382,7 +382,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                                 fontSize: 16.0,
                                                 color: Colors.black,
                                               ),
-                                          textAlign: TextAlign.end,
+                                          textAlign: widget.textAlign,
                                           textInputAction: TextInputAction.next,
                                           onChanged: (p0) {
                                             p0 = format(p0);
@@ -437,7 +437,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                                 fontSize: 16.0,
                                                 color: Colors.black,
                                               ),
-                                          textAlign: TextAlign.end,
+                                          textAlign: widget.textAlign,
                                           textInputAction: TextInputAction.next,
                                           onChanged: (p0) {
                                             setState(() {
@@ -493,7 +493,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                                 fontSize: 16.0,
                                                 color: Colors.black,
                                               ),
-                                          textAlign: TextAlign.end,
+                                          textAlign: widget.textAlign,
                                           textInputAction: TextInputAction.done,
                                           onChanged: (p0) {
                                             setState(() {
