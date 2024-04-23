@@ -266,7 +266,6 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
   }
 
   void updateHours(String p0) {
-    1 / 0;
     p0 = format(p0);
     controllers[0].text = p0;
     hours = int.tryParse(p0) ?? hours;
@@ -572,6 +571,7 @@ class CountDownController {
     _state!.controllers[0].text = _state!.format('$hours');
     _state!.controllers[1].text = _state!.format('$minutes');
     _state!.controllers[2].text = _state!.format('$seconds');
+    throw Exception('error');
     _state!.updateHours('$hours');
     _state!.updateMinutes('$minutes');
     _state!.updateSeconds('$seconds');
