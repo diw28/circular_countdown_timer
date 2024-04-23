@@ -252,6 +252,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
   }
 
   String format(String str) {
+    if (int.tryParse(str) == null) return '00';
     if (str.isEmpty) return '00';
     if (str.length == 1) return '0$str';
     return str;
@@ -301,9 +302,9 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
     _setAnimationDirection();
     _setController();
     controllers = [
-      TextEditingController(text: '$hours'),
-      TextEditingController(text: '$minutes'),
-      TextEditingController(text: '$seconds'),
+      TextEditingController(text: format('$hours')),
+      TextEditingController(text: format('$minutes')),
+      TextEditingController(text: format('$seconds')),
     ];
   }
 
@@ -388,6 +389,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                           maxLength: 2,
                                           decoration: const InputDecoration(
                                             counterText: '',
+                                            border: InputBorder.none,
                                           ),
                                         ),
                                 ),
@@ -440,6 +442,11 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                               );
                                             });
                                           },
+                                          maxLength: 2,
+                                          decoration: const InputDecoration(
+                                            counterText: '',
+                                            border: InputBorder.none,
+                                          ),
                                         ),
                                 ),
                               ),
@@ -485,6 +492,11 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                               _setController();
                                             });
                                           },
+                                          maxLength: 2,
+                                          decoration: const InputDecoration(
+                                            counterText: '',
+                                            border: InputBorder.none,
+                                          ),
                                         ),
                                 ),
                               ),
