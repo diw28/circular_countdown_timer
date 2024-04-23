@@ -569,8 +569,8 @@ class CountDownController {
 
   void setTime(int hours, int minutes, int seconds) {
     _state?.updateHours('$hours');
-    _state?.updateHours('$minutes');
-    _state?.updateHours('$seconds');
+    _state?.updateMinutes('$minutes');
+    _state?.updateSeconds('$seconds');
   }
 
   /// This Method Starts the Countdown Timer
