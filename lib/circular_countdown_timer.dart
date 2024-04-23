@@ -38,7 +38,7 @@ class CircularCountDownTimer extends StatefulWidget {
   final ValueChanged<String>? onChange;
 
   /// Countdown duration in Seconds.
-  final List<int> durations;
+  final int hours, minutes, seconds;
 
   /// Countdown initial elapsed Duration in Seconds.
   final int initialDuration;
@@ -89,10 +89,9 @@ class CircularCountDownTimer extends StatefulWidget {
   final Function(Function(Duration duration) defaultFormatterFunction,
       Duration duration)? timeFormatterFunction;
 
-  CircularCountDownTimer({
+  const CircularCountDownTimer({
     required this.width,
     required this.height,
-    required this.durations,
     required this.fillColor,
     required this.ringColor,
     this.timeFormatterFunction,
@@ -115,8 +114,10 @@ class CircularCountDownTimer extends StatefulWidget {
     this.autoStart = true,
     this.textFormat,
     this.controller,
-  }) : assert(initialDuration <=
-            3600 * durations[0] + 60 * durations[1] + durations[2]);
+    required this.hours,
+    required this.minutes,
+    required this.seconds,
+  }) : assert(initialDuration <= 3600 * hours + 60 * minutes + seconds);
 
   @override
   CircularCountDownTimerState createState() => CircularCountDownTimerState();
@@ -262,9 +263,9 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
 
   @override
   void initState() {
-    hours = widget.durations[0];
-    minutes = widget.durations[1];
-    seconds = widget.durations[2];
+    hours = widget.hours;
+    minutes = widget.minutes;
+    seconds = widget.seconds;
     countDownController = widget.controller ?? CountDownController();
     super.initState();
     _controller = AnimationController(
