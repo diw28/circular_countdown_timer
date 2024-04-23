@@ -429,7 +429,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                           time.isNotEmpty)
                                       ? TextField(
                                           enabled: false,
-                                          controller: controllers[0]
+                                          controller: controllers[1]
                                             ..text =
                                                 format(time.substring(3, 5)),
                                           style: widget.textStyle ??
