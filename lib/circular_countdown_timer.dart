@@ -265,45 +265,6 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
     return str.substring(0, 2);
   }
 
-  void updateHours(String p0) {
-    p0 = format(p0);
-    controllers[0].text = p0;
-    hours = int.tryParse(p0) ?? hours;
-    _controller?.duration = Duration(
-      hours: hours,
-      minutes: minutes,
-      seconds: seconds,
-    );
-    _setController();
-    setState(() {});
-  }
-
-  void updateMinutes(String p0) {
-    p0 = format(p0);
-    controllers[0].text = p0;
-    hours = int.tryParse(p0) ?? minutes;
-    _controller?.duration = Duration(
-      hours: hours,
-      minutes: minutes,
-      seconds: seconds,
-    );
-    _setController();
-    setState(() {});
-  }
-
-  void updateSeconds(String p0) {
-    p0 = format(p0);
-    controllers[0].text = p0;
-    hours = int.tryParse(p0) ?? seconds;
-    _controller?.duration = Duration(
-      hours: hours,
-      minutes: minutes,
-      seconds: seconds,
-    );
-    _setController();
-    setState(() {});
-  }
-
   void update() {
     setState(() {});
   }
@@ -434,12 +395,21 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                           textAlign: widget.textAlign,
                                           textInputAction: TextInputAction.next,
                                           onChanged: (p0) {
+                                            p0 = format(p0);
+                                            controllers[0].text = p0;
+                                            hours = int.tryParse(p0) ?? hours;
+                                            _controller?.duration = Duration(
+                                              hours: hours,
+                                              minutes: minutes,
+                                              seconds: seconds,
+                                            );
+                                            _setController();
                                             controllers[1].selection =
                                                 const TextSelection(
                                               baseOffset: 0,
                                               extentOffset: 2,
                                             );
-                                            updateHours(p0);
+                                            setState(() {});
                                           },
                                           maxLength: 3,
                                           decoration: const InputDecoration(
@@ -459,7 +429,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                           time.isNotEmpty)
                                       ? TextField(
                                           enabled: false,
-                                          controller: controllers[1]
+                                          controller: controllers[0]
                                             ..text =
                                                 format(time.substring(3, 5)),
                                           style: widget.textStyle ??
@@ -481,12 +451,23 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                           textAlign: widget.textAlign,
                                           textInputAction: TextInputAction.next,
                                           onChanged: (p0) {
-                                            controllers[2].selection =
-                                                const TextSelection(
-                                              baseOffset: 0,
-                                              extentOffset: 2,
-                                            );
-                                            updateMinutes(p0);
+                                            setState(() {
+                                              p0 = format(p0);
+                                              controllers[1].text = p0;
+                                              minutes =
+                                                  int.tryParse(p0) ?? minutes;
+                                              _controller?.duration = Duration(
+                                                hours: hours,
+                                                minutes: minutes,
+                                                seconds: seconds,
+                                              );
+                                              _setController();
+                                              controllers[2].selection =
+                                                  const TextSelection(
+                                                baseOffset: 0,
+                                                extentOffset: 2,
+                                              );
+                                            });
                                           },
                                           maxLength: 3,
                                           decoration: const InputDecoration(
@@ -527,12 +508,18 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                           textAlign: widget.textAlign,
                                           textInputAction: TextInputAction.done,
                                           onChanged: (p0) {
-                                            _controller?.duration = Duration(
-                                              hours: hours,
-                                              minutes: minutes,
-                                              seconds: seconds,
-                                            );
-                                            updateSeconds(p0);
+                                            setState(() {
+                                              p0 = format(p0);
+                                              controllers[2].text = p0;
+                                              seconds =
+                                                  int.tryParse(p0) ?? seconds;
+                                              _controller?.duration = Duration(
+                                                hours: hours,
+                                                minutes: minutes,
+                                                seconds: seconds,
+                                              );
+                                              _setController();
+                                            });
                                           },
                                           maxLength: 3,
                                           decoration: const InputDecoration(
