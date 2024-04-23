@@ -341,7 +341,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                       ? TextField(
                                           // enabled: false,
                                           controller: controllers[0]
-                                            ..text = time,
+                                            ..text = '${widget.durations}',
                                           // ..text = time.substring(0, 2),
                                           style: widget.textStyle ??
                                               const TextStyle(
