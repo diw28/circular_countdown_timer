@@ -367,6 +367,11 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                           onChanged: (p0) {
                                             setState(() {
                                               hours = int.tryParse(p0) ?? hours;
+                                              _controller?.duration = Duration(
+                                                hours: hours,
+                                                minutes: minutes,
+                                                seconds: seconds,
+                                              );
                                               _setController();
                                             });
                                           },
@@ -405,6 +410,11 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                             setState(() {
                                               minutes =
                                                   int.tryParse(p0) ?? minutes;
+                                              _controller?.duration = Duration(
+                                                hours: hours,
+                                                minutes: minutes,
+                                                seconds: seconds,
+                                              );
                                               _setController();
                                             });
                                           },
@@ -443,6 +453,11 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                                             setState(() {
                                               seconds =
                                                   int.tryParse(p0) ?? seconds;
+                                              _controller?.duration = Duration(
+                                                hours: hours,
+                                                minutes: minutes,
+                                                seconds: seconds,
+                                              );
                                               _setController();
                                             });
                                           },
