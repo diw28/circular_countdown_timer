@@ -304,6 +304,10 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
     setState(() {});
   }
 
+  void update() {
+    setState(() {});
+  }
+
   @override
   void initState() {
     hours = widget.hours;
@@ -584,6 +588,8 @@ class CountDownController {
     _initialDuration = _state!.widget.initialDuration;
     _duration = duration;
     isStarted.value = _state!.widget.autoStart;
+
+    _state!.update();
 
     if (_state!.widget.initialDuration > 0 && _state!.widget.autoStart) {
       if (_state!.widget.isReverse) {
