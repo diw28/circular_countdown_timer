@@ -616,9 +616,9 @@ class CountDownController {
       isRestarted.value = false;
       isPaused.value = false;
       isResumed.value = false;
-      _state!.controllers[0].text = '${_state!.hours}';
-      _state!.controllers[1].text = '${_state!.minutes}';
-      _state!.controllers[2].text = '${_state!.seconds}';
+      _state!.controllers[0].text = _state!.format('${_state!.hours}');
+      _state!.controllers[1].text = _state!.format('${_state!.minutes}');
+      _state!.controllers[2].text = _state!.format('${_state!.seconds}');
     }
   }
 
